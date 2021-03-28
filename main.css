@@ -10,3 +10,26 @@
 }
 
 /* Include any custom CSS styling here! */
+.controls {
+    margin-left: 75px;
+    padding: 1%;
+}
+
+.tooltip {
+    position: absolute;
+    font-size: 15px;
+    min-width: 100px;
+    padding: 10px;
+    width:  auto;
+    height: auto;
+    pointer-events: none;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+}
+
+p {
+    padding-left: 30px;
+    padding-right: 20px;
+    margin-right: 20px;
+}

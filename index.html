@@ -4,22 +4,105 @@
         <meta charset="utf-8">
         <title>Assignment 6 &laquo; Data Visualization Dashboard&raquo;</title>
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="main.css"/>
         <!--Feel free to add more CSS files as needed-->
         <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
     </head>
 <body>
     <div class="header">
-        <h3>Assignment 6 &laquo; Data Visualization Dashboard &raquo;</h3>
+        <h3>Data Visualization Dashboard: Video Game Sales</h3>
     </div>
     <!--  We included a basic HTML structure for the 3 graphs here. Feel free to change this if you'd like  -->
     <div class="row">
         <div class="col-lg-6">
-            <div id="graph1"></div>
-            <div id="graph2"></div><br/>
+            <div id="barplot"></div>
+            <div class="controls">
+                <button type="button" class="btn btn-info btn-lg" onclick="setData('NA_Sales')">North America</button>
+                <button type="button" class="btn btn-info btn-lg" onclick="setData('EU_Sales')">Europe</button>
+                <button type="button" class="btn btn-info btn-lg" onclick="setData('JP_Sales')">Japan</button>
+            </div>
+            <div class="paragraph">
+                <p>*Hover over a pie piece to see the corresponging Genre and Total Sales (in millions)</p>
+            </div>
+            <div id="pie"></div><br/>
         </div>
         <div class="col-lg-6">
+            <div class="dropdown">
+                <button class="btn btn-info btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Genre
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a onclick="setGraph('Action')">Action</a></li>
+                  <li><a onclick="setGraph('Sports')">Sports</a></li>
+                  <li><a onclick="setGraph('Platform')">Platform</a></li>
+                  <li><a onclick="setGraph('Racing')">Racing</a></li>
+                  <li><a onclick="setGraph('Role-Playing')">Role-Playing</a></li>
+                  <li><a onclick="setGraph('Puzzle')">Puzzle</a></li>
+                  <li><a onclick="setGraph('Shooter')">Shooter</a></li>
+                  <li><a onclick="setGraph('Simulation')">Simulation</a></li>
+                  <li><a onclick="setGraph('Fighting')">Fighting</a></li>
+                  <li><a onclick="setGraph('Adventure')">Adventure</a></li>
+                  <li><a onclick="setGraph('Strategy')">Strategy</a></li>
+                  <li><a onclick="setGraph('Misc')">Misc</a></li>
+                </ul>
+              </div>
             <div id="graph3"></div>
+        </div>
+
+        <div class="paragraph">
+            <p> 1) By presenting the top 10 video games of all time (measured by total global sales) and the top publisher for each game genre 
+                (measured by total times published) in bar graphs, the user can immediately determine which one is the "top" by looking at the longest
+                bar (and the count next to it). Additionally, these graphs give a sense of the top 10 for each question, to provide some comparison metrics. 
+                Additionally, the popularity of a genre, measured by genre sales per region, is displayed in a piechart so that the user can determine which
+                genre represents the biggest pie, the total sales of that genre in the selected region, and what percentage of total sales does that genre
+                represent.
+            <br/>
+            <br/>
+            2) * I believe D3 is helpful in providing tools to make interactive visually-appealing graphs, especially for the ending results of
+            a project. 
+            <br/> 
+            * Moreover, D3's great variety of charts and explanation of the best scenarios to choose a graph depending on what you want to show 
+            (for example, correlation or ranking) makes it very easy to display data in an appealing and effective way. 
+            <br/>
+            * Lastly, the support code for each graph, found in the D3 Graph Gallery, was very useful for understanding how to best code the graph
+            to fit my data.
+            <br/> 
+            <br/>
+            3) * Sometimes D3 might not be the best tool for creating a visualization because it may not be the most effective in the given scenario.
+            For example, for a graph that doesn't necessarily need to look super appealing, it might be more effective and quick to use Matplotlib.<br/>
+            * Additionally, before starting the data analysis, it might be useful to do data visualization to explore the properties of the data. 
+            In this scenario, D3 may not be the best tool but rather something quicker and simpler like either Excel or Matplotlib. <br/>
+            * Following a similar logic as in the point above, D3 would also not be the most efficient tool for when periodically doing data visualization 
+            throughout the analysis part of a project to checking for the quantitative trends, as it may take more time than using other tools.
+            <br/> 
+            <br/>
+            4)
+            Users without visual impairments will find this dashboard more accessible than users with visual impairments. For example, I added the labels of
+            my piechart in a hovering function and, unfortunately, someone that needs a screen reader will not be able to find these labels. Moreover, users
+            with Protanopia and Deuteranopia will see the shades of blue as different shades of purple, but with the colors I chose, they will be able to see
+            a difference in the shades, which is very important for the piechart. Someone with Achromatopsia will look at everything in my dashboard as
+            different shades of grey, which can make my piechart less accessible for them. My color palette works well for people with Protanomaly, Deuteranomaly,
+            Tritanomaly, and Achromatomaly. <br/>
+            To deal with the different visual disparities, I created a stroke
+            to separate each piece of the pie, and all my graphs have titles that describe the purpose of the graph and have labels whenever applicable. 
+            The bar graphs are the most accessible because the difference in shades is irrelevant for the graph purposes. <br/>
+            Additional actions to make my graph more accesible would be to eliminate the hover function (added to meet project requirements), but set static 
+            labels with a clear line to reference the pie piece it corresponds to. Moreover, I would add alt text to my visuals. <br/> 
+            * The color analysis was done by applying the "color blindness" feature to my color palette on Coolors.
+            <br/> 
+            <br/>
+            5) 
+            I first wanted to use a purple and blue color palette for my visualization, but thanks to the readings, I realized that such color palette would 
+            make my dashboard inaccessible for many users. I tried playing with many color palettes in Coolors until I found one that would both be visually appealing and 
+            minimize inaccessibility. I found this to be very challenging. I still don't think it's perfect, as some users would still find difficulties with the colors, so there is room for improvement
+            in the color palette. What kept me from continuing this process was the time constraint. <br/>
+            Additionally, and probably the most important, adding labels to my piechart through a hovering function makes my piechart largely inaccessible. I was
+            mindful of this when creating the dashboard, but designed it this way to meet the tooltip requirement. 
+        </p>
+            
         </div>
     </div>
     <!--Feel free to add more JavaScript files as needed-->
